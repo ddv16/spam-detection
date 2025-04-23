@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detection Tool</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Detection Tool</h1>
+        <p>Enter text to check if it's spam or not:</p>
+    
+        <form id="spam-form" method="POST">
+
+            {% csrf_token %}
+            <textarea id="text-input" name="text" rows="5" placeholder="Type or paste your text here..."></textarea>
+            
+            <button type="submit" id="check-btn">Check for Spam</button>
+        </form>
+        {% if result %}
+        <div id="result">
+            <h2>Result:</h2>
+            <p>The text "<span id="analyzed-text"></span>{{result.text}}</p>
+            <p id="spam-result" class="result-text">{{result.is_spam}}</p>
+            <p>Confidence: <span id="confidence"></span>{{result.confidence}}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
